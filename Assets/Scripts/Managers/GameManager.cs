@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 	public float cameraHalfHeight;
 
 	private Camera mainCamera;
+
+    private UIManager uiManager;
 	#endregion
 
 	#region SINGLETON PATTERN
@@ -43,6 +45,9 @@ public class GameManager : MonoBehaviour {
 	{
 		lives = maxNumLives;
 		mainCamera = Camera.main;
+
+        uiManager = UIManager.Instance;
+        uiManager.UpdateScore(0);
 		
 		StartCoroutine(SpawnAsteroids());
 	}
@@ -53,6 +58,8 @@ public class GameManager : MonoBehaviour {
 	public void LoseLife() {
 		lives--;
 
+        uiManager.UpdateLifeSprites(lives);
+
 		if (lives == 0)
 			Restart();
 	}
@@ -61,6 +68,8 @@ public class GameManager : MonoBehaviour {
 	public void GainPoints(int points)
 	{
 		score += points;
+
+        uiManager.UpdateScore(score);
 	}
 
 	// Restart the game.
