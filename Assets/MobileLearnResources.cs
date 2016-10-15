@@ -24,11 +24,12 @@
 
 public static class MobileLearnResources
 {
-        public const string achievement_test5 = "CgkI05XNxesHEAIQBQ"; // <GPGSID>
-        public const string achievement_test1 = "CgkI05XNxesHEAIQAQ"; // <GPGSID>
-        public const string achievement_test2 = "CgkI05XNxesHEAIQAg"; // <GPGSID>
-        public const string achievement_test3 = "CgkI05XNxesHEAIQAw"; // <GPGSID>
-        public const string achievement_test4 = "CgkI05XNxesHEAIQBA"; // <GPGSID>
+        public const string achievement_test5 = "CgkIq9Ov16MfEAIQBQ"; // <GPGSID>
+        public const string leaderboard_awesome_leaderboard = "CgkIq9Ov16MfEAIQBg"; // <GPGSID>
+        public const string achievement_test1 = "CgkIq9Ov16MfEAIQAQ"; // <GPGSID>
+        public const string achievement_test2 = "CgkIq9Ov16MfEAIQAg"; // <GPGSID>
+        public const string achievement_test3 = "CgkIq9Ov16MfEAIQAw"; // <GPGSID>
+        public const string achievement_test4 = "CgkIq9Ov16MfEAIQBA"; // <GPGSID>
 
 }
 
