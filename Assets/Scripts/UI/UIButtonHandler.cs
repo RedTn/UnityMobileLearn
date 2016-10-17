@@ -10,9 +10,5 @@ public class UIButtonHandler : MonoBehaviour {
         {
             Social.ShowAchievementsUI();
         }
-        else
-        {
-            Debug.Log("not authenticated");
-        }
     }
 }

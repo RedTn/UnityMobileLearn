@@ -4,14 +4,17 @@ using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 
 public class GooglePlayManager : MonoBehaviour {
-    void Awake()
+    void Start()
     {
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.DebugLogEnabled = true;
 
         Social.localUser.Authenticate((bool success) =>
        {
-           Debug.Log(success);
+           if(success)
+           {
+               AchievementsUtility.StartGameAchievement();
+           }
        });
     }
 }

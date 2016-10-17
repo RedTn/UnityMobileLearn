@@ -53,7 +53,10 @@ public class Asteroid : MonoBehaviour {
 			PoolManager.Instance.Recycle(Constants.BULLET_PREFAB_NAME, collision.transform.parent.gameObject);
 
 			if (!isLarge)
-				PoolManager.Instance.Recycle(Constants.ASTEROID_PREFAB_NAME, gameObject);
+            {
+                PoolManager.Instance.Recycle(Constants.ASTEROID_PREFAB_NAME, gameObject);
+                gameManager.AsteroidDestroyed();
+            }
 			else
 				BreakApart();
 

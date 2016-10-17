@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour {
 	private int maxNumLives = 3;
 	private int lives;
 
-	private int score;
+	private int score = 0;
+
+    private int asteroidsDestroyed = 0;
 
 	public float cameraHalfWidth;
 	public float cameraHalfHeight;
@@ -43,7 +45,9 @@ public class GameManager : MonoBehaviour {
 	#region MONOBEHAVIOUR METHODS
 	void Start()
 	{
-		lives = maxNumLives;
+        Screen.orientation = ScreenOrientation.Portrait;
+
+        lives = maxNumLives;
 		mainCamera = Camera.main;
 
         uiManager = UIManager.Instance;
@@ -69,8 +73,17 @@ public class GameManager : MonoBehaviour {
 	{
 		score += points;
 
+        AchievementsUtility.CalculatePointsAchievement(score);
+
         uiManager.UpdateScore(score);
 	}
+
+    public void AsteroidDestroyed()
+    {
+        asteroidsDestroyed++;
+
+        AchievementsUtility.CalculateAsteroidsAchievement(asteroidsDestroyed);
+    }
 
 	// Restart the game.
 	public void Restart() {

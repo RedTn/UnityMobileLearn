@@ -3,6 +3,7 @@ using System.Collections;
 
 public class UserInputHandler : MonoBehaviour {
 
+    #region Public Methods
     public delegate void TapAction(Touch t);
     public static event TapAction OnTap;
 
@@ -17,29 +18,33 @@ public class UserInputHandler : MonoBehaviour {
 
     public delegate void AccelerometerChangedAction(Vector3 acceleration);
     public static event AccelerometerChangedAction OnAccelerometerChanged;
+    #endregion
 
+    #region Public Variables
     public float tapMaxMovement = 50f;
 
+    public float panMinTime = 0.4f;
+
+    public GameObject optionsMenu;
+    #endregion
+
+    #region Private Variables
     private Vector2 movement;
 
     private bool tapGestureFailed = false;
-
-    public float panMinTime = 0.4f;
 
     private float startTime;
 
     private bool panGestureRecognized = false;
 
     private Vector3 defaultAcceleration;
+    #endregion
 
-	void OnEnable()
+    #region MonoBehvaiours
+
+    void Update()
     {
-        defaultAcceleration = new Vector3(Input.acceleration.x, Input.acceleration.y, -1*Input.acceleration.z);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	    if (Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.touches[0];
 
@@ -73,14 +78,14 @@ public class UserInputHandler : MonoBehaviour {
             {
                 if (panGestureRecognized)
                 {
-                    if(OnPanEnded != null)
+                    if (OnPanEnded != null)
                     {
                         OnPanEnded(touch);
                     }
                 }
                 else if (!tapGestureFailed)
                 {
-                    if(OnTap != null)
+                    if (OnTap != null)
                     {
                         OnTap(touch);
                     }
@@ -91,11 +96,27 @@ public class UserInputHandler : MonoBehaviour {
             }
         }
 
-        if(OnAccelerometerChanged != null)
+        if (OnAccelerometerChanged != null)
         {
             Vector3 acceleration = new Vector3(Input.acceleration.x, Input.acceleration.y, -1 * Input.acceleration.z);
             acceleration -= defaultAcceleration;
             OnAccelerometerChanged(acceleration);
         }
-	}
+    }
+    #endregion
+
+    void OnEnable()
+    {
+        defaultAcceleration = new Vector3(Input.acceleration.x, Input.acceleration.y, -1*Input.acceleration.z);
+    }
+
+    public void OnOptionsSelected()
+    {
+        optionsMenu.SetActive(true);
+    }
+
+    public void OnOptionsClosed()
+    {
+        optionsMenu.SetActive(false);
+    }
 }
