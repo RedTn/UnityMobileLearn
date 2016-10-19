@@ -2,12 +2,18 @@
 using System.Collections;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
+using GooglePlayGames.BasicApi;
 
 public class GooglePlayManager : MonoBehaviour {
     void Start()
     {
-        PlayGamesPlatform.Activate();
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+        .EnableSavedGames()
+        .Build();
+        PlayGamesPlatform.InitializeInstance(config);
+
         PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
 
         Social.localUser.Authenticate((bool success) =>
        {

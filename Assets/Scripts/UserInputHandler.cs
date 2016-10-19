@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GooglePlayGames.BasicApi.SavedGame;
+using GooglePlayGames;
 
 public class UserInputHandler : MonoBehaviour {
 
@@ -38,9 +40,16 @@ public class UserInputHandler : MonoBehaviour {
     private bool panGestureRecognized = false;
 
     private Vector3 defaultAcceleration;
+
+    private GameManager gameManager;
     #endregion
 
     #region MonoBehvaiours
+
+    void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
 
     void Update()
     {
@@ -113,10 +122,12 @@ public class UserInputHandler : MonoBehaviour {
     public void OnOptionsSelected()
     {
         optionsMenu.SetActive(true);
+        gameManager.PauseGame();
     }
 
     public void OnOptionsClosed()
     {
         optionsMenu.SetActive(false);
+        gameManager.UnpauseGame();
     }
 }

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	private int maxNumLives = 3;
 	private int lives;
 
-	private int score = 0;
+	public int score = 0;
 
     private int asteroidsDestroyed = 0;
 
@@ -89,6 +89,17 @@ public class GameManager : MonoBehaviour {
 	public void Restart() {
 		Application.LoadLevel(Application.loadedLevel);
 	}
+    
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1;
+    }
+
 	#endregion
 
 	#region PRIVATE METHODS
