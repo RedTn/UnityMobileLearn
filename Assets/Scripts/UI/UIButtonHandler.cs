@@ -6,6 +6,8 @@ using GooglePlayGames.BasicApi.SavedGame;
 using GooglePlayGames.BasicApi;
 using System;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class UIButtonHandler : MonoBehaviour {
     private GameManager gameManager;
@@ -69,7 +71,26 @@ public class UIButtonHandler : MonoBehaviour {
         if (status == SavedGameRequestStatus.Success)
         {
             // handle processing the byte array data
-            Debug.Log(Encoding.UTF8.GetString(data));
+            PlayerData playerData = new PlayerData();
+            using(MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                stream.Write(data, 0, data.Length);
+                stream.Seek(0, SeekOrigin.Begin);
+                playerData = (PlayerData)bf.Deserialize(stream);
+            }
+            gameManager.ResetPoints();
+            gameManager.GainPoints(playerData.score);
+
+            Vector3 shipPosition = new Vector3(playerData.shipPosition_x, playerData.shipPosition_y, playerData.shipPosition_z);
+            Vector3 eulerRotation = new Vector3(playerData.shipEuler_x, playerData.shipEuler_y, playerData.shipEuler_z);
+            Debug.Log(eulerRotation);
+            Quaternion shipRotation = Quaternion.identity;
+            shipRotation.eulerAngles = eulerRotation;
+
+            GameObject ship = GameObject.Find("Ship");
+            ship.transform.position = shipPosition;
+            ship.transform.rotation = Quaternion.Euler(eulerRotation);
         }
         else
         {
@@ -122,8 +143,30 @@ public class UIButtonHandler : MonoBehaviour {
         if (status == SavedGameRequestStatus.Success)
         {
             // handle reading or writing of saved game.
-            string score = gameManager.score.ToString();
-            byte[] savedData = Encoding.UTF8.GetBytes(score);
+            byte[] savedData;
+            PlayerData playerData = new PlayerData();
+            playerData.score = gameManager.score;
+
+            GameObject ship = GameObject.Find("Ship");
+            Vector3 shipPosition = ship.transform.position;
+            playerData.shipPosition_x = shipPosition.x;
+            playerData.shipPosition_y = shipPosition.y;
+            playerData.shipPosition_z = shipPosition.z;
+
+            Vector3 eulerRotation = ship.transform.rotation.eulerAngles;
+            playerData.shipEuler_x = eulerRotation.x;
+            playerData.shipEuler_y = eulerRotation.y;
+            playerData.shipEuler_z = eulerRotation.z;
+
+            Debug.Log(eulerRotation);
+
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bf.Serialize(stream, playerData);
+                savedData = stream.ToArray();
+            }
+            
             SaveGame(game, savedData, TimeSpan.FromSeconds(Time.realtimeSinceStartup));
         }
         else
@@ -187,5 +230,17 @@ public class UIButtonHandler : MonoBehaviour {
             new Rect(0, 0, 200, 200), 0, 0);
         screenShot.Apply();
         return screenShot;
+    }
+
+    [Serializable]
+    class PlayerData
+    {
+        public int score;
+        public float shipPosition_x;
+        public float shipPosition_y;
+        public float shipPosition_z;
+        public float shipEuler_x;
+        public float shipEuler_y;
+        public float shipEuler_z;
     }
 }

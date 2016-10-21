@@ -78,6 +78,13 @@ public class GameManager : MonoBehaviour {
         uiManager.UpdateScore(score);
 	}
 
+    public void ResetPoints()
+    {
+        score = 0;
+
+        uiManager.UpdateScore(score);
+    }
+
     public void AsteroidDestroyed()
     {
         asteroidsDestroyed++;
