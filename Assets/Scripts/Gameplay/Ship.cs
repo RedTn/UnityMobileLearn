@@ -115,7 +115,6 @@ public class Ship : MonoBehaviour {
     private void TurnTowardsTouch(Touch t)
     {
         Vector3 targetPoint = Camera.main.ScreenToWorldPoint(t.position);
-
         StopCoroutine(TURN_COROUTINE_NAME);
         StartCoroutine(TURN_COROUTINE_NAME, targetPoint);
     }
@@ -155,7 +154,7 @@ public class Ship : MonoBehaviour {
 	// Make the ship invincible for a time.
 	private IEnumerator StartInvincibilityTimer(float timeLimit)
 	{
-        GetComponent<Collider2D>().enabled = false;
+        GetComponentInChildren<Collider2D>().enabled = false;
 
 		SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
@@ -171,7 +170,7 @@ public class Ship : MonoBehaviour {
 		}
 
 		spriteRenderer.enabled = true;
-        GetComponent<Collider2D>().enabled = true;
+        GetComponentInChildren<Collider2D>().enabled = true;
 	}
 	#endregion
 }

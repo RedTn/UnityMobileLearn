@@ -41,7 +41,7 @@ public class Asteroid : MonoBehaviour {
 	{
 		if (collision.gameObject.layer == Constants.SHIP_LAYER)
 		{
-			collision.gameObject.GetComponent<Ship>().OnHit ();
+			collision.gameObject.transform.parent.GetComponent<Ship>().OnHit();
 
 			if (!isLarge)
 				PoolManager.Instance.Recycle(Constants.ASTEROID_PREFAB_NAME, gameObject);

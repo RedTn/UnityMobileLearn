@@ -28,7 +28,7 @@ public static class MobileLearnResources
         public const string achievement_test6 = "CgkIq9Ov16MfEAIQBw"; // <GPGSID>
         public const string achievement_start_the_game_already = "CgkIq9Ov16MfEAIQAQ"; // <GPGSID>
         public const string achievement_asteroid_destroyer = "CgkIq9Ov16MfEAIQAg"; // <GPGSID>
-        public const string leaderboard_awesome_leaderboard = "CgkIq9Ov16MfEAIQBg"; // <GPGSID>
+        public const string leaderboard_score_leaderboard = "CgkIq9Ov16MfEAIQBg"; // <GPGSID>
         public const string achievement_points_adept = "CgkIq9Ov16MfEAIQAw"; // <GPGSID>
         public const string achievement_test4 = "CgkIq9Ov16MfEAIQBA"; // <GPGSID>
 

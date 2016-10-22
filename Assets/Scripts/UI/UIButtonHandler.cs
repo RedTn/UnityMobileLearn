@@ -232,6 +232,14 @@ public class UIButtonHandler : MonoBehaviour {
         return screenShot;
     }
 
+    public void ShowLeaderboard()
+    {
+        if (Social.localUser.authenticated)
+        {
+            Social.ShowLeaderboardUI();
+        }
+    }
+
     [Serializable]
     class PlayerData
     {

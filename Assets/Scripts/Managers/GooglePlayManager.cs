@@ -12,7 +12,7 @@ public class GooglePlayManager : MonoBehaviour {
         .Build();
         PlayGamesPlatform.InitializeInstance(config);
 
-        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.DebugLogEnabled = false;
         PlayGamesPlatform.Activate();
 
         Social.localUser.Authenticate((bool success) =>

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 // Singleton to manage the game state.
 public class GameManager : MonoBehaviour {
@@ -94,7 +95,15 @@ public class GameManager : MonoBehaviour {
 
 	// Restart the game.
 	public void Restart() {
-		Application.LoadLevel(Application.loadedLevel);
+        if (Social.localUser.authenticated)
+        {
+            Social.ReportScore(score, MobileLearnResources.leaderboard_score_leaderboard, (bool success) =>
+            {
+
+            });
+        }
+        //Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
     
     public void PauseGame()
